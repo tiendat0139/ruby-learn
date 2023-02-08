@@ -8,6 +8,11 @@ $primary :#7395ae;
 @import "../../../node_modules/bootstrap/scss/bootstrap";
 
 
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
 
 body{
   font-family: 'Poppins', sans-serif;
