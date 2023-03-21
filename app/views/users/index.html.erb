@@ -1,0 +1,38 @@
+<h2 class="text-center mt-3 text-primary">DBlog Bloggers</h2>
+
+<div class="container mt-5">
+  <div class="row gy-5">
+    <% @users.each do |user| %>
+      <div class="col-md-6 d-flex justify-content-center">
+        <div class="card w-100 px-3 shadow" style="max-width: 540px;">
+          <div class="row">
+            <div class="col-md-3 d-flex align-items-center">
+              <%= gravatar_for user %>
+            </div>
+            <div class="col-md-5">
+              <div class="card-body">
+                <h5 class="card-title mb-0"><%= user.username %></h5>
+                <p class="card-text">
+                  <small><%= pluralize(user.articles.count, "articles") %></small>
+                </p>
+                <p class="card-text text-muted mb-0">
+                  Joined <%= time_ago_in_words(user.created_at) %> ago
+                </p>
+              </div>
+            </div>
+            <div class="col-md-4 d-flex align-items-end mb-3">
+              <%= link_to 'View', user_path(user), class: "btn btn-outline-success"%>
+              <% if logged_in? && current_user.admin? %>
+                <%= link_to 'Delete', user_path(user), class: "btn btn-outline-danger mx-auto",
+                data: { turbo_method: :delete, turbo_confirm: "Are you sure? Associated will be deleted" } %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+
+

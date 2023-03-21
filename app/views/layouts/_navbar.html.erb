@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg bg-body-tertiary">
+<nav class="navbar navbar-expand-lg bg-body-tertiary fixed-top">
   <div class="container-fluid">
     <%= link_to "DBLOG", root_path, class: "navbar-brand" %>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -6,8 +6,9 @@
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-        <li class="nav-item">
-          <a class="nav-link" href="#">Link</a>
+        <li class="nav-item <%= params[:controller] == 'users' && %w(index new edit).include?(params[:action])? 
+        "active" : ""%>">
+          <%= link_to 'Bloggers', users_path, class: 'nav-link' %>
         </li>
         <li class="<%= params[:controller] == 'articles' && %w(index new edit).include?(params[:action])? 
         "active" : "" %> nav-item dropdown">
@@ -20,13 +21,31 @@
           </ul>
         </li>
         <li class="nav-item">
-          <a class="nav-link disabled">Disabled</a>
+          <a class="nav-link disabled">Profile</a>
         </li>
       </ul>
-      <form class="d-flex" role="search">
-        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-        <button class="btn btn-success" type="submit">Search</button>
-      </form>
+      <ul class="navbar-nav">
+        <% if logged_in? %>
+          <li class="nav-item dropdown">
+            <div class="nav-link dropdown-toggle d-flex align-items-center" href="#" role="button" 
+            data-bs-toggle="dropdown" aria-expanded="false">
+              <%= gravatar_for current_user, size: 40 %>
+            </div>
+            <ul class="dropdown-menu dropdown-menu-end">
+              <li class="nav-item">
+                <%= link_to 'View profile', user_path(current_user), class: 'nav-link'%>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Logout', logout_path, data: {turbo_method: :delete}, class: 'nav-link' %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li class="nav-item">
+            <%= link_to 'Login', login_path, class: 'nav-link' %> 
+          </li>
+        <% end %>
+      </ul>
     </div>
   </div>
 </nav>

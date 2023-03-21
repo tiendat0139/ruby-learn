@@ -1,0 +1,60 @@
+<div class="container w-50">
+  <div class="row justify-content-center align-items-center">
+    <div class="col-md-10">
+      <%= form_with(
+        model: @user, 
+        local: true, 
+        data: { turbo: false }, 
+        class: "bg-primary px-3 shadow rounded py-5"
+      ) do |f| %>
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <%= f.label :username, class: "form-label text-white" %>
+          </div>
+          <div class="col-md-10">
+            <%= f.text_field :username, class: "form-control shadow-none", placeholder: "Enter user name" %>
+          </div>         
+          <% if @user.errors[:username].any? %>
+            <div class="col-md-10 offset-md-2 text-warning fs-6">
+              *Username <%= @user.errors[:username].first%>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <%= f.label :email, class: "form-label text-white" %>
+          </div>
+          <div class="col-md-10">
+            <%= f.email_field :email, class: "form-control shadow-none",
+            placeholder: "Enter email"%>
+          </div>
+          <% if @user.errors[:email].any? %>
+            <div class="col-md-10 offset-md-2 text-warning fs-6">
+              *Email <%= @user.errors[:email].first %>
+            </div>
+          <% end %>
+        </div>
+
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <%= f.label :password, class: "form-label text-white" %>
+          </div>
+          <div class="col-md-10">
+            <%= f.password_field :password, class: "form-control shadow-none",
+            placeholder: "Choose a password" %>
+          </div>
+          <% if @user.errors[:password].any? %>
+            <div class="col-md-10 offset-md-2 text-warning fs-6">
+              *Password <%= @user.errors[:password].first %>
+            </div>
+          <% end %>
+        </div>
+        <div class="form-group text-center">
+          <%= f.submit(@user.new_record? ? "Sign up" : "Update", class: "btn btn-outline-light btn-lg")%>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+

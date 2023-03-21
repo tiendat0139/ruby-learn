@@ -3,14 +3,16 @@
   <div class="col-md-8 mt-4">
     <div class="card text-center shadow">
       <div class="card-header fst-italic">
-        by NTD
+        <%= @article.user.username %>
       </div>
       <div class="card-body">
         <h5 class="card-title text-success fw-bold"><%= @article.title %></h5>
         <div class="card-text text-start px-3"><%= simple_format(@article.description) %></div>
-        <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-success"%>
-        <%= link_to 'Delete', article_path(@article), class: "btn btn-outline-danger",
-        data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+        <% if logged_in? && @article.user == current_user %>
+          <%= link_to 'Edit', edit_article_path(@article), class: "btn btn-outline-success"%>
+          <%= link_to 'Delete', article_path(@article), class: "btn btn-outline-danger",
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?"}%>
+        <% end %>
       </div>
       <div class="card-footer text-muted">
         <small>
