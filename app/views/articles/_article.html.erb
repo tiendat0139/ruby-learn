@@ -8,7 +8,8 @@
             <%= link_to article.user.username, user_path(article.user), class: "text-decoration-none" %>
           <%  else %>
             anonymous
-          <% end %>
+          <% end %> <br/>
+          <%= render article.categories %>
         </div>
         <div class="card-body">
           <h5 class="card-title text-success fw-bold"><%= article.title %></h5>

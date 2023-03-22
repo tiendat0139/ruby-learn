@@ -10,7 +10,7 @@
         "active" : ""%>">
           <%= link_to 'Bloggers', users_path, class: 'nav-link' %>
         </li>
-        <li class="<%= params[:controller] == 'articles' && %w(index new edit).include?(params[:action])? 
+        <li class="<%= params[:controller] == 'articles' && %w(index new edit show).include?(params[:action])? 
         "active" : "" %> nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             Articles

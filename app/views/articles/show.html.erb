@@ -2,8 +2,12 @@
 <div class="row justify-content-md-center g-0">
   <div class="col-md-8 mt-4">
     <div class="card text-center shadow">
-      <div class="card-header fst-italic">
+      <div class="card-header fst-italic py-3">
         <%= @article.user.username %>
+        <%= gravatar_for @article.user %>
+        <% if @article.categories.any? %>
+          <%= render @article.categories %>
+        <% end %>
       </div>
       <div class="card-body">
         <h5 class="card-title text-success fw-bold"><%= @article.title %></h5>

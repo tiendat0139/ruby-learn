@@ -8,7 +8,12 @@ class ArticlesController < ApplicationController
   end
 
   def index
-    @articles = Article.paginate(page: params[:page], per_page: 4)
+    category = params[:category]
+    if category
+      @articles = Category.find_by(name: category).articles.paginate(page: params[:page], per_page: 4)
+    else
+      @articles = Article.all.paginate(page: params[:page], per_page: 4)
+    end
   end
 
   def new
@@ -30,14 +35,12 @@ class ArticlesController < ApplicationController
   end
 
   def update
-    if !current_user.admin?
-      if @article.update(article_params)
-        flash[:notice] = "Article was updated successfully"
-        redirect_to @article
-      else 
-        flash[:errors] = @article.errors.full_messages
-        redirect_to edit_article_path(@article)
-      end
+    if @article.update(article_params)
+      flash[:notice] = "Article was updated successfully"
+      redirect_to @article
+    else 
+      flash[:errors] = @article.errors.full_messages
+      redirect_to edit_article_path(@article)
     end
   end
 
@@ -53,7 +56,7 @@ class ArticlesController < ApplicationController
   end
 
   def article_params
-    params.require(:article).permit(:title, :description)
+    params.require(:article).permit(:title, :description, category_ids: [])
   end
 
   def require_permission

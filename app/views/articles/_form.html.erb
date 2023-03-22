@@ -35,6 +35,17 @@
             </div>
           <% end %>
         </div>
+
+        <div class="row mb-3">
+          <div class="col-md-2">
+            <%= f.label :category, class: "form-label text-white" %>
+          </div>
+          <div class="col-md-10">
+            <%= f.collection_select(:category_ids, Category.order(:name), :id, :name, 
+            { prompt: "" }, { :multiple => true, class: "form-select", size: "2" }) %>
+          </div>
+        </div>
+
         <div class="form-group mb-3 text-center">
           <%= f.submit class: "btn btn-outline-light btn-lg" %>
         </div>
